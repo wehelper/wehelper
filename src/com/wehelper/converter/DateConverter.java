@@ -1,4 +1,4 @@
-package com.wehelper.utils;
+package com.wehelper.converter;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -9,11 +9,11 @@ import java.util.Date;
 import org.springframework.core.convert.converter.Converter;
 
 
-public class ConverterUtil implements Converter<String, Date>{
+public class DateConverter implements Converter<String, Date>{
 	
 	private String dateFormatPattern;
 
-    public ConverterUtil(String dateFormatPattern) {
+    public DateConverter(String dateFormatPattern) {
         this.dateFormatPattern = dateFormatPattern;
     }
     
