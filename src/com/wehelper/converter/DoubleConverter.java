@@ -13,8 +13,8 @@ public class DoubleConverter implements Converter<String, Double>{
 			try{
 				return Double.parseDouble(source);
 			}catch (Exception e) {
-				return (double) 0;
-				//throw new IllegalArgumentException(String.format("价钱格式出错了"));
+				//return (double) 0;
+				throw new IllegalArgumentException(String.format("价钱格式出错了"));
 			}
 		}
 	}
