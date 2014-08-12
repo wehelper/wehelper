@@ -28,7 +28,7 @@ public class CommonAction extends BaseAction {
 	@Auth(verifyLogin = false, verifyURL = false)
 	@RequestMapping("/404")
 	public ModelAndView notFound(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		Map<String, Object> context = getRootMap();
+		Map<String, Object> context = getRootMap(request);
 		return forword("common/404", context);
 	}
 	
@@ -36,7 +36,7 @@ public class CommonAction extends BaseAction {
 	@Auth(verifyLogin = false, verifyURL = false)
 	@RequestMapping("/500")
 	public ModelAndView die(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		Map<String, Object> context = getRootMap();
+		Map<String, Object> context = getRootMap(request);
 		return forword("common/500", context);
 	}
 

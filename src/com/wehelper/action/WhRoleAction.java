@@ -48,7 +48,7 @@ public class WhRoleAction extends BaseAction{
 	 */
 	@RequestMapping("/role")
 	public ModelAndView  list(WhRoleModel model,HttpServletRequest request) throws Exception{
-		Map<String,Object>  context = getRootMap();
+		Map<String,Object>  context = getRootMap(request);
 		return forword("wh/whRole",context); 
 	}
 	

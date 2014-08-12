@@ -19,3 +19,4 @@
 <script src="${metronicUrl}/global/scripts/metronic.js" type="text/javascript"></script>
 <script src="${metronicUrl}/admin/layout/scripts/layout.js" type="text/javascript"></script>
 <script src="${metronicUrl}/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
+<script src="${metronicUrl}/admin/layout/scripts/demo.js" type="text/javascript"></script>

@@ -25,6 +25,7 @@ import com.wehelper.bean.WhUser;
 import com.wehelper.service.WhMenuBtnService;
 import com.wehelper.service.WhMenuService;
 import com.wehelper.service.WhUserService;
+import com.wehelper.utils.Constant.SuperAdmin;
 import com.wehelper.utils.DateUtil;
 import com.wehelper.utils.HtmlUtil;
 import com.wehelper.utils.MethodUtil;
@@ -57,7 +58,7 @@ public class MainAction extends BaseAction {
 	@Auth(verifyLogin=false,verifyURL=false)
 	@RequestMapping("/login")
 	public ModelAndView  login(HttpServletRequest request,HttpServletResponse response) throws Exception{
-		Map<String,Object>  context = getRootMap();
+		Map<String,Object>  context = getUrlMap();
 		return forword("login", context);
 	}
 	
@@ -117,6 +118,27 @@ public class MainAction extends BaseAction {
 		SessionUtils.setUser(request,user);
 		//记录成功登录日志
 		log.debug(msg+"["+username+"]"+"登录成功");
+		
+		//
+		// 获取用户权限下面的菜单
+		//
+		List<WhMenu> rootMenus = null;
+		List<WhMenu> childMenus = null;
+		List<WhMenuBtn> childBtns = null;
+		//超级管理员
+		if(user != null && SuperAdmin.YES.key ==  user.getSuperAdmin()){
+			rootMenus = whMenuService.getRootMenu(null);// 查询所有根节点
+			childMenus = whMenuService.getChildMenu();//查询所有子节点
+		}else{
+			rootMenus = whMenuService.getRootMenuByUser(user.getId() );//根节点
+			childMenus = whMenuService.getChildMenuByUser(user.getId());//子节点
+			childBtns = whMenuBtnService.getMenuBtnByUser(user.getId());//按钮操作
+			buildData(childMenus,childBtns,request); //构建必要的数据
+		}
+		
+		SessionUtils.setAttr(request, "menuList", treeMenu(rootMenus,childMenus));
+		// over
+		
 		sendSuccessMessage(response, "登录成功.");
 	}
 	
@@ -200,29 +222,15 @@ public class MainAction extends BaseAction {
 	 * @param url
 	 * @param classifyId
 	 * @return
-	 *//*
+	 */
 	@Auth(verifyURL=false)
 	@RequestMapping("/main") 
-	public ModelAndView  main(SiteMainModel model,HttpServletRequest request){
-		Map<String,Object>  context = getRootMap();
+	public ModelAndView  main(String m, HttpServletRequest request){
+		Map<String,Object>  context = getUrlMap();
 		WhUser user = SessionUtils.getUser(request);
-		List<WhMenu> rootMenus = null;
-		List<WhMenu> childMenus = null;
-		List<WhMenuBtn> childBtns = null;
-		//超级管理员
-		if(user != null && SuperAdmin.YES.key ==  user.getSuperAdmin()){
-			rootMenus = whMenuService.getRootMenu(null);// 查询所有根节点
-			childMenus = whMenuService.getChildMenu();//查询所有子节点
-		}else{
-			rootMenus = whMenuService.getRootMenuByUser(user.getId() );//根节点
-			childMenus = whMenuService.getChildMenuByUser(user.getId());//子节点
-			childBtns = whMenuBtnService.getMenuBtnByUser(user.getId());//按钮操作
-			buildData(childMenus,childBtns,request); //构建必要的数据
-		}
 		context.put("user", user);
-		context.put("menuList", treeMenu(rootMenus,childMenus));
 		return forword("main/main",context); 
-	}*/
+	}
 	
 	/**
 	 * 构建树形数据
@@ -237,7 +245,7 @@ public class MainAction extends BaseAction {
 	/**
 	 * 构建树形数据
 	 * @return
-	 *//*
+	 */
 	private void buildData(List<WhMenu> childMenus,List<WhMenuBtn> childBtns,HttpServletRequest request){
 		//能够访问的url列表
 		List<String> accessUrls  = new ArrayList<String>();
@@ -260,5 +268,5 @@ public class MainAction extends BaseAction {
 		}
 		SessionUtils.setAccessUrl(request, accessUrls);//设置可访问的URL
 		SessionUtils.setMemuBtnMap(request, menuBtnMap); //设置可用的按钮
-	}*/
+	}
 }

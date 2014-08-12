@@ -42,7 +42,7 @@ public class WhUserAction extends BaseAction{
 	 */
 	@RequestMapping("/list") 
 	public ModelAndView  list(WhUserModel model,HttpServletRequest request) throws Exception{
-		Map<String,Object>  context = getRootMap();
+		Map<String,Object>  context = getRootMap(request);
 		return forword("whUser/list",context); 
 	}
 	
