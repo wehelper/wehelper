@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.snail.mapper.SysRoleRelMapper" > 
+<mapper namespace="com.wehelper.mapper.SysRoleRelMapper" > 
 <!-- Result Map-->
-<resultMap id="BaseResultMap" type="com.snail.bean.SysRoleRel" >
+<resultMap id="BaseResultMap" type="com.wehelper.bean.SysRoleRel" >
 	<result column="roleId" property="roleId"/>
 	<result column="objId" property="objId"/>
 	<result column="relType" property="relType"/>

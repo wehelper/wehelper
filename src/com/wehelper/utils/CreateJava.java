@@ -20,23 +20,23 @@ public class CreateJava {
 	private static String passWord = res.getString("gpt.password");
 
 	 //项目跟路径路径，此处修改为你的项目路径
-	private static String rootPath = "M:\\Eclipse\\WorkSpace\\MrSnail\\";//getRootPath();// "F:\\openwork\\open\\";
-	private static String actionPath = "M:\\Eclipse\\WorkSpace\\MrSnail\\src\\com\\snail\\";
+	private static String rootPath = "M:\\Eclipse\\WorkSpace\\WeHelper\\";//getRootPath();// "F:\\openwork\\open\\";
+	private static String actionPath = "M:\\Eclipse\\WorkSpace\\WeHelper\\src\\com\\wehelper\\";
 
 
 	public static void main(String[] args) {
 		 CreateBean createBean=new CreateBean();
 		 createBean.setMysqlInfo(url, username, passWord);
 		 /** 此处修改成你的 表名 和 中文注释***/
-		 String tableName="snail_product"; //
-		 String codeName ="产品管理";//中文注释  当然你用英文也是可以的 
+		 String tableName="wh_user"; //
+		 String codeName ="用户管理";//中文注释  当然你用英文也是可以的 
 		 String className= createBean.getTablesNameToClassName(tableName);
 		 String lowerName =className.substring(0, 1).toLowerCase()+className.substring(1, className.length());
 		 
 		 //根路径
 		 String srcPath = rootPath + "src\\";
 		 //包路径
-		 String pckPath = rootPath + "src\\com\\snail\\";
+		 String pckPath = rootPath + "src\\com\\wehelper\\";
 		 //页面路径，放到WEB-INF下面是为了不让手动输入路径访问jsp页面，起到安全作用
 		 String webPath = rootPath + "WebRoot\\jsp\\sys\\"; 
 		 

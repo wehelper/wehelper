@@ -39,7 +39,7 @@ public class CommonPageParser {
 	static{
 		try{
 			//获取文件模板根路径
-			String  templateBasePath = "M:\\Eclipse\\WorkSpace\\MrSnail\\template";//"Constant.WORK_TEMPLATE_PATH;
+			String  templateBasePath = "M:\\Eclipse\\WorkSpace\\WeHelper\\template";//"Constant.WORK_TEMPLATE_PATH;
 			Properties properties = new Properties();
 			properties.setProperty(Velocity.RESOURCE_LOADER,"file");
 			properties.setProperty("file.resource.loader.description","Velocity File Resource Loader");

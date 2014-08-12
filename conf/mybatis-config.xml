@@ -4,6 +4,6 @@
 <configuration> 
   <typeAliases></typeAliases>  
   <mappers> 
-    <!-- <mapper resource="com/wehelper/mybatis/SiteMainMapper.xml"/> -->  
+     <mapper resource="com/wehelper/mybatis/WhUserMapper.xml"/> 
   </mappers> 
 </configuration>

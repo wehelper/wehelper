@@ -22,7 +22,7 @@ import com.wehelper.utils.DateUtil;
 import com.wehelper.utils.HtmlUtil;
  
 @Controller
-@RequestMapping("/index") 
+@RequestMapping("/dashboard") 
 public class IndexAction extends BaseAction{
 	
 	private final static Logger log= Logger.getLogger(IndexAction.class);
@@ -38,7 +38,7 @@ public class IndexAction extends BaseAction{
 	 * @return
 	 * @throws Exception 
 	 */
-	@RequestMapping("/list") 
+	@RequestMapping("/index") 
 	public ModelAndView  list(IndexModel model,HttpServletRequest request) throws Exception{
 		Map<String,Object>  context = getRootMap();
 		return forword("index/index",context); 

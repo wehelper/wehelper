@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wehelper.mapper.WhUserMapper" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.wehelper.bean.WhUser" >
+	<result column="id" property="id"/>
+	<result column="username" property="username"/>
+	<result column="email" property="email"/>
+	<result column="password" property="password"/>
+	<result column="wh_unino_id" property="wh_unino_id"/>
+	<result column="gender" property="gender"/>
+	<result column="birthday" property="birthday"/>
+	<result column="province" property="province"/>
+	<result column="city" property="city"/>
+	<result column="country" property="country"/>
+	<result column="headimgurl" property="headimgurl"/>
+	<result column="state" property="state"/>
+	<result column="loginCount" property="loginCount"/>
+	<result column="loginTime" property="loginTime"/>
+	<result column="superAdmin" property="superAdmin"/>
+	<result column="createTime" property="createTime"/>
+	<result column="createBy" property="createBy"/>
+	<result column="updateTime" property="updateTime"/>
+	<result column="updateBy" property="updateBy"/>
+	<result column="deleted" property="deleted"/>
+</resultMap>
+       
+<!-- wh_user table all fields -->
+<sql id="Base_Column_List" >
+	 id,username,email,password,wh_unino_id,gender,birthday,province,city,country,headimgurl,state,loginCount,loginTime,superAdmin,createTime,createBy,updateTime,updateBy,deleted
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and id =  #{id}
+	</if>
+	 	<if test="username != null and username != ''" >
+	    and username =  #{username}
+	</if>
+	 	<if test="email != null and email != ''" >
+	    and email =  #{email}
+	</if>
+	 	<if test="password != null and password != ''" >
+	    and password =  #{password}
+	</if>
+	 	<if test="wh_unino_id != null and wh_unino_id != ''" >
+	    and wh_unino_id =  #{wh_unino_id}
+	</if>
+	<if test="gender != null" >
+	    and gender =  #{gender}
+	</if>
+	 	<if test="birthday != null and birthday != ''" >
+	    and birthday =  #{birthday}
+	</if>
+	 	<if test="province != null and province != ''" >
+	    and province =  #{province}
+	</if>
+	 	<if test="city != null and city != ''" >
+	    and city =  #{city}
+	</if>
+	 	<if test="country != null and country != ''" >
+	    and country =  #{country}
+	</if>
+	 	<if test="headimgurl != null and headimgurl != ''" >
+	    and headimgurl =  #{headimgurl}
+	</if>
+	<if test="state != null" >
+	    and state =  #{state}
+	</if>
+	<if test="loginCount != null" >
+	    and loginCount =  #{loginCount}
+	</if>
+	<if test="loginTime != null" >
+	    and loginTime =  #{loginTime}
+	</if>
+	<if test="superAdmin != null" >
+	    and superAdmin =  #{superAdmin}
+	</if>
+	<if test="createTime != null" >
+	    and createTime =  #{createTime}
+	</if>
+	<if test="createBy != null" >
+	    and createBy =  #{createBy}
+	</if>
+	<if test="updateTime != null" >
+	    and updateTime =  #{updateTime}
+	</if>
+	<if test="updateBy != null" >
+	    and updateBy =  #{updateBy}
+	</if>
+	<if test="deleted != null" >
+	    and deleted =  #{deleted}
+	</if>
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+  <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+	SELECT LAST_INSERT_ID()
+  </selectKey>
+  insert into wh_user(id,username,email,password,wh_unino_id,gender,birthday,province,city,country,headimgurl,state,loginCount,loginTime,superAdmin,createTime,createBy,updateTime,updateBy,deleted)
+ values(#{id},#{username},#{email},#{password},#{wh_unino_id},#{gender},#{birthday},#{province},#{city},#{country},#{headimgurl},#{state},#{loginCount},#{loginTime},#{superAdmin},now(),#{createBy},now(),#{updateBy},#{deleted})
+</insert>
+
+<!-- 根据id，修改记录-->  
+ <update id="update" parameterType="Object" >
+  update wh_user set username=#{username},email=#{email},password=#{password},wh_unino_id=#{wh_unino_id},gender=#{gender},birthday=#{birthday},province=#{province},city=#{city},country=#{country},headimgurl=#{headimgurl},state=#{state},loginCount=#{loginCount},loginTime=#{loginTime},superAdmin=#{superAdmin},createBy=#{createBy},updateTime=now(),updateBy=#{updateBy},deleted=#{deleted} where id=#{id}
+ </update>
+ 
+ <!-- 修改记录，只修改只不为空的字段 -->
+<update id="updateBySelective" parameterType="Object" >
+	update wh_user set 
+	<trim  suffixOverrides="," >
+	<if test="username != null  and username != '' ">
+		username=#{username},
+	</if>
+	<if test="email != null  and email != '' ">
+		email=#{email},
+	</if>
+	<if test="password != null  and password != '' ">
+		password=#{password},
+	</if>
+	<if test="wh_unino_id != null  and wh_unino_id != '' ">
+		wh_unino_id=#{wh_unino_id},
+	</if>
+	<if test="gender != null  ">
+		gender=#{gender},
+	</if>
+	<if test="birthday != null  and birthday != '' ">
+		birthday=#{birthday},
+	</if>
+	<if test="province != null  and province != '' ">
+		province=#{province},
+	</if>
+	<if test="city != null  and city != '' ">
+		city=#{city},
+	</if>
+	<if test="country != null  and country != '' ">
+		country=#{country},
+	</if>
+	<if test="headimgurl != null  and headimgurl != '' ">
+		headimgurl=#{headimgurl},
+	</if>
+	<if test="state != null  ">
+		state=#{state},
+	</if>
+	<if test="loginCount != null  ">
+		loginCount=#{loginCount},
+	</if>
+	<if test="loginTime != null  ">
+		loginTime=#{loginTime},
+	</if>
+	<if test="superAdmin != null  ">
+		superAdmin=#{superAdmin},
+	</if>
+	<if test="createTime != null  ">
+		createTime=#{createTime},
+	</if>
+	<if test="createBy != null  ">
+		createBy=#{createBy},
+	</if>
+	<if test="updateTime != null  ">
+		updateTime=#{updateTime},
+	</if>
+	<if test="updateBy != null  ">
+		updateBy=#{updateBy},
+	</if>
+	<if test="deleted != null  ">
+		deleted=#{deleted},
+	</if>
+	</trim> where id=#{id}
+</update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete 	 from wh_user where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 用户管理 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from wh_user where id = #{id}
+</select>
+
+<!-- 用户管理 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from wh_user 
+	<include refid="Example_Where_Clause"/>
+</select>
+  	
+<!-- 查询用户管理列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from wh_user 
+	<include refid="Example_Where_Clause"/>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+    <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if>
+</select>
+  	
+  	  	
+<!-- 用于登录检查 -->
+<select id="queryLogin" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from wh_user 
+	where username=#{username} and password=#{password}
+</select>
+
+<!-- 用于登录检查 -->
+<select id="getUserCountByEmail" resultType="int"  parameterType="Object">
+	select count(1)
+	from wh_user where email=#{email}
+</select>
+</mapper>   

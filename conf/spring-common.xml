@@ -19,9 +19,9 @@
 	<!-- ***************配置数据源************** -->
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">	
          <property name="driverClassName"><value>com.mysql.jdbc.Driver</value></property> 
-         <property name="url"><value>jdbc:mysql://218.244.145.40:3306/wehelper?useUnicode=true&amp;characterEncoding=utf-8</value></property> 
-         <property name="username"><value>wehelper</value></property> 
-         <property name="password"><value>chenggongle88</value></property>
+         <property name="url"><value>jdbc:mysql://localhost:3306/wehelper?useUnicode=true&amp;characterEncoding=utf-8</value></property> 
+         <property name="username"><value>root</value></property> 
+         <property name="password"><value></value></property>
 	</bean>
 	
 	
@@ -68,7 +68,7 @@
 		<property name="converters">
 			<list>
 				<bean class="com.wehelper.converter.DoubleConverter" ></bean>
-				<bean class="com.wehelper.converter.ConverterUtil" >
+				<bean class="com.wehelper.converter.DateConverter" >
 				    <constructor-arg value="yyyy-MM-dd HH:mm:ss" />
 				</bean>
 			</list>

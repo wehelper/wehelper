@@ -15,16 +15,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 
-import com.snail.bean.${className};
-import com.snail.bean.${className};
-import com.snail.bean.SiteType;
-import com.snail.model.${className}Model;
-import com.snail.model.${className}Model;
-import com.snail.service.${className}Service;
-import com.snail.utils.HtmlUtil;
-import com.snail.bean.${className};
-import com.snail.bean.BaseBean.DELETED;
-import com.snail.model.${className}Model;
+import com.wehelper.bean.${className};
+import com.wehelper.bean.${className};
+import com.wehelper.bean.SiteType;
+import com.wehelper.model.${className}Model;
+import com.wehelper.model.${className}Model;
+import com.wehelper.service.${className}Service;
+import com.wehelper.utils.HtmlUtil;
+import com.wehelper.bean.${className};
+import com.wehelper.bean.BaseBean.DELETED;
+import com.wehelper.model.${className}Model;
  
 @Controller
 @RequestMapping("/${lowerName}") 
