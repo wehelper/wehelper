@@ -1,1 +1,5 @@
 /build/
+/conf/log4j.properties
+/src/com/wehelper/utils/CreateJava.java
+/src/com/wehelper/utils/CommonPageParser.java
+/src/com/wehelper/utils/CreateJava.java
