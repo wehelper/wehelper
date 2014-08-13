@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.wehelper.mapper.SysMenuMapper" > 
+<mapper namespace="com.wehelper.mapper.WhMenuMapper" > 
 <!-- Result Map-->
-<resultMap id="BaseResultMap" type="com.wehelper.bean.SysMenu" >
+<resultMap id="BaseResultMap" type="com.wehelper.bean.WhMenu" >
 	<result column="id" property="id"/>
 	<result column="name" property="name"/>
 	<result column="url" property="url"/>
@@ -17,12 +17,12 @@
 </resultMap>
 
 <!-- 扩展字段 -->
-<resultMap id="ExtResultMap" extends="BaseResultMap" type="com.wehelper.bean.SysMenu" >
+<resultMap id="ExtResultMap" extends="BaseResultMap" type="com.wehelper.bean.WhMenu" >
 	<result column="subCount" property="subCount"/>
 </resultMap>
 
 
-<!-- sys_menu table all fields -->
+<!-- wh_menu table all fields -->
 <sql id="Base_Column_List" >
 	 id,name,url,parentId,deleted,createTime,updateTime,rank,actions
 </sql>
@@ -68,18 +68,18 @@ where 1=1   and deleted =  0
   <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
 	SELECT LAST_INSERT_ID()
   </selectKey>
-  insert into sys_menu(name,url,parentId,deleted,createTime,rank,actions)
+  insert into wh_menu(name,url,parentId,deleted,createTime,rank,actions)
  values(#{name},#{url},#{parentId},#{deleted},now(),#{rank},#{actions})
 </insert>
 
 <!-- 根据id，修改记录-->  
  <update id="update" parameterType="Object" >
-  update sys_menu set id=#{id},name=#{name},url=#{url},parentId=#{parentId},deleted=#{deleted},updateTime = now(),rank=#{rank},actions=#{actions} where id=#{id}
+  update wh_menu set id=#{id},name=#{name},url=#{url},parentId=#{parentId},deleted=#{deleted},updateTime = now(),rank=#{rank},actions=#{actions} where id=#{id}
  </update>
  
  <!-- 修改记录，只修改只不为空的字段 -->
 <update id="updateBySelective" parameterType="Object" >
-	update sys_menu set 
+	update wh_menu set 
 	<trim  suffixOverrides="," >
 	<if test="id != null  ">
 		id=#{id},
@@ -113,18 +113,18 @@ where 1=1   and deleted =  0
 
 <!-- 删除记录 -->
 <update id="delete" parameterType="Object">
-	update sys_menu set deleted = 1 where id = #{id}
+	update wh_menu set deleted = 1 where id = #{id}
 </update>
  
 <!-- 根据id查询 系统菜单 -->
 <select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
 	select <include refid="Base_Column_List" /> 
-	 from sys_menu where id = #{id}
+	 from wh_menu where id = #{id}
 </select>
 
 <!-- 系统菜单 列表总数-->
 <select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
-	select count(1) from sys_menu 
+	select count(1) from wh_menu 
 	<include refid="Example_Where_Clause"/>
 </select>
   	
@@ -132,8 +132,8 @@ where 1=1   and deleted =  0
 <select id="queryByList" resultMap="ExtResultMap"  parameterType="Object">
 	select 
 	<include refid="Base_Column_List"/>
-	,(SELECT COUNT(*) FROM sys_menu c  WHERE c.parentId = m.id and deleted = 0) AS subCount
-	from sys_menu m
+	,(SELECT COUNT(*) FROM wh_menu c  WHERE c.parentId = m.id and deleted = 0) AS subCount
+	from wh_menu m
 	<include refid="Example_Where_Clause"/>
 	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
       ${pager.orderCondition}
@@ -147,12 +147,12 @@ where 1=1   and deleted =  0
 	
 <!-- 查询所有有效系统菜单列表 -->
 <select id="queryByAll" resultMap="BaseResultMap"  parameterType="Object">
-	select  id,name,url,parentId,actions from sys_menu deleted= 0 order by rank desc
+	select  id,name,url,parentId,actions from wh_menu deleted= 0 order by rank desc
 </select>
 
 <!-- 获取顶级菜单 -->
 <select id="getRootMenu"  resultMap="BaseResultMap" parameterType="Object">
-	select id,name,url,parentId,actions from sys_menu where deleted= 0 and parentId is null
+	select id,name,url,parentId,actions from wh_menu where deleted= 0 and parentId is null
 	<if test="menuId != null" >
      and  id != #{menuId}
     </if>
@@ -161,27 +161,27 @@ where 1=1   and deleted =  0
 
 <!-- 获取子菜单-->
 <select id="getChildMenu"  resultMap="BaseResultMap" parameterType="Object">
-	select id,name,url,parentId,actions from sys_menu where deleted= 0 and parentId is not null
+	select id,name,url,parentId,actions from wh_menu where deleted= 0 and parentId is not null
 </select>
 
 <!-- 根据角色Id获取菜单（不需要父菜单） -->
 <select id="getMenuByRoleId"  resultMap="BaseResultMap" parameterType="Object">
-	SELECT id,NAME,url,parentId,actions FROM sys_menu m WHERE deleted= 0 AND parentId IS NOT NULL
+	SELECT id,NAME,url,parentId,actions FROM wh_menu m WHERE deleted= 0 AND parentId IS NOT NULL
 	AND EXISTS (
-		 SELECT * FROM sys_role_rel r WHERE r.objId = m.id AND relType = 0
+		 SELECT * FROM wh_role_rel r WHERE r.objId = m.id AND relType = 0
 		 AND r.roleId = #{roleId}
 	)
 </select>
 
 <!-- 根据用户id查询父菜单菜单 -->
 <select id="getRootMenuByUser"  resultMap="BaseResultMap" parameterType="Object">
-	SELECT DISTINCT id,NAME,url,parentId,actions FROM sys_menu m 
+	SELECT DISTINCT id,NAME,url,parentId,actions FROM wh_menu m 
 	WHERE deleted= 0 AND parentId IS NULL
 	AND EXISTS (
-		 SELECT * FROM sys_role_rel r 
+		 SELECT * FROM wh_role_rel r 
 		 WHERE r.objId = m.id AND r.relType = 0
 		 AND EXISTS ( 
-			SELECT 1 FROM sys_role_rel u WHERE u.roleId = r.roleId  AND u.relType = 1 AND u.objId = #{userId}
+			SELECT 1 FROM wh_role_rel u WHERE u.roleId = r.roleId  AND u.relType = 1 AND u.objId = #{userId}
 		 )
 	)
 </select>
@@ -189,13 +189,13 @@ where 1=1   and deleted =  0
 
 <!-- 根据用户id查询子菜单菜单 -->
 <select id="getChildMenuByUser"  resultMap="BaseResultMap" parameterType="Object">
-	SELECT DISTINCT id,NAME,url,parentId,actions FROM sys_menu m 
+	SELECT DISTINCT id,NAME,url,parentId,actions FROM wh_menu m 
 	WHERE deleted= 0 AND parentId IS NOT NULL
 	AND EXISTS (
-		 SELECT * FROM sys_role_rel r 
+		 SELECT * FROM wh_role_rel r 
 		 WHERE r.objId = m.id AND r.relType = 0
 		 AND EXISTS ( 
-			SELECT 1 FROM sys_role_rel u WHERE u.roleId = r.roleId  AND u.relType = 1 AND u.objId = #{userId}
+			SELECT 1 FROM wh_role_rel u WHERE u.roleId = r.roleId  AND u.relType = 1 AND u.objId = #{userId}
 		 )
 	)
 </select>

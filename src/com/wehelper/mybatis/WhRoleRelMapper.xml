@@ -2,15 +2,15 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.wehelper.mapper.SysRoleRelMapper" > 
+<mapper namespace="com.wehelper.mapper.WhRoleRelMapper" > 
 <!-- Result Map-->
-<resultMap id="BaseResultMap" type="com.wehelper.bean.SysRoleRel" >
+<resultMap id="BaseResultMap" type="com.wehelper.bean.WhRoleRel" >
 	<result column="roleId" property="roleId"/>
 	<result column="objId" property="objId"/>
 	<result column="relType" property="relType"/>
 </resultMap>
        
-<!-- sys_role_rel table all fields -->
+<!-- wh_role_rel table all fields -->
 <sql id="Base_Column_List" >
 	 roleId,objId,relType
 </sql>
@@ -38,18 +38,18 @@ where 1=1
   <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
 	SELECT LAST_INSERT_ID()
   </selectKey>
-  insert into sys_role_rel(roleId,objId,relType)
+  insert into wh_role_rel(roleId,objId,relType)
  values(#{roleId},#{objId},#{relType})
 </insert>
 
 <!-- 根据id，修改记录-->  
  <update id="update" parameterType="Object" >
-  update sys_role_rel set objId=#{objId},relType=#{relType} where roleId=#{roleId}
+  update wh_role_rel set objId=#{objId},relType=#{relType} where roleId=#{roleId}
  </update>
  
  <!-- 修改记录，只修改只不为空的字段 -->
 <update id="updateBySelective" parameterType="Object" >
-	update sys_role_rel set 
+	update wh_role_rel set 
 	<trim  suffixOverrides="," >
 	<if test="objId != null  ">
 		objId=#{objId},
@@ -62,13 +62,13 @@ where 1=1
 
 <!-- 删除记录 -->
 <delete id="delete" parameterType="Object">
-	delete 	from sys_role_rel where roleId = #{roleId}
+	delete 	from wh_role_rel where roleId = #{roleId}
 </delete>
  
  
 <!-- 删除记录 -->
 <delete id="deleteByRoleId" parameterType="Object">
-	delete 	from sys_role_rel where roleId = #{roleId}
+	delete 	from wh_role_rel where roleId = #{roleId}
 	<if test="relType != null" >
 		and relType =  #{relType}
 	</if>
@@ -77,7 +77,7 @@ where 1=1
  
 <!-- 删除记录 -->
 <delete id="deleteByObjId" parameterType="Object">
-	delete 	from sys_role_rel where objId = #{objId}
+	delete 	from wh_role_rel where objId = #{objId}
 	<if test="relType != null" >
 		and relType =  #{relType}
 	</if>
@@ -87,7 +87,7 @@ where 1=1
 <select id="queryByRoleId" resultMap="BaseResultMap"  parameterType="Object">
 	select
 	<include refid="Base_Column_List"/>
-	from sys_role_rel where roleId = #{roleId}
+	from wh_role_rel where roleId = #{roleId}
 	<if test="relType != null" >
 		and relType =  #{relType}
 	</if>
@@ -98,7 +98,7 @@ where 1=1
 <select id="queryByObjId" resultMap="BaseResultMap" parameterType="Object">
 	select 
 	<include refid="Base_Column_List"/>
-	from sys_role_rel where objId = #{objId}
+	from wh_role_rel where objId = #{objId}
 	<if test="relType != null" >
 		and relType =  #{relType}
 	</if>
@@ -107,12 +107,12 @@ where 1=1
 <!-- 根据id查询 角色关联 -->
 <select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
 	select <include refid="Base_Column_List" /> 
-	 from sys_role_rel where roleId = #{roleId}
+	 from wh_role_rel where roleId = #{roleId}
 </select>
 
 <!-- 角色关联 列表总数-->
 <select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
-	select count(1) from sys_role_rel 
+	select count(1) from wh_role_rel 
 	<include refid="Example_Where_Clause"/>
 </select>
   	
@@ -120,7 +120,7 @@ where 1=1
 <select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
 	select 
 	<include refid="Base_Column_List"/>
-	from sys_role_rel 
+	from wh_role_rel 
 	<include refid="Example_Where_Clause"/>
 	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
       ${pager.orderCondition}

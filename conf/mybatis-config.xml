@@ -4,6 +4,10 @@
 <configuration> 
   <typeAliases></typeAliases>  
   <mappers> 
-     <mapper resource="com/wehelper/mybatis/WhUserMapper.xml"/> 
+     <mapper resource="com/wehelper/mybatis/WhMenuBtnMapper.xml"/>
+     <mapper resource="com/wehelper/mybatis/WhMenuMapper.xml"/> 
+     <mapper resource="com/wehelper/mybatis/WhRoleMapper.xml"/> 
+     <mapper resource="com/wehelper/mybatis/WhRoleRelMapper.xml"/> 
+     <mapper resource="com/wehelper/mybatis/WhUserMapper.xml"/>
   </mappers> 
 </configuration>

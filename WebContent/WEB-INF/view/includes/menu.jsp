@@ -1,3 +1,6 @@
+<%@ page language="java"  pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"  %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"  %>
 <!-- BEGIN SIDEBAR -->
 <div class="page-sidebar-wrapper">
     <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
@@ -37,33 +40,22 @@
                 <span class="selected"></span>
                 </a>
             </li>
+            <c:forEach var="item" items="${menuList}">
             <li>
                 <a href="javascript:;">
                 <i class="icon-basket"></i>
-                <span class="title">eCommerce</span>
+                <span class="title">${item.text}</span>
                 <span class="arrow "></span>
                 </a>
                 <ul class="sub-menu">
-                    <li>
-                        <a href="ecommerce_index.html">
-                        <i class="icon-home"></i>
-                        Dashboard</a>
-                    </li>
-                </ul>
+				<c:forEach var="node" items="${item.children}">
+				  <li>
+                    <a href="${whUrl}${node.url}">${node.text}</a>
+                  </li>
+				</c:forEach>
+				</ul>
             </li>
-            <li>
-                <a href="javascript:;">
-                <i class="icon-rocket"></i>
-                <span class="title">Page Layouts</span>
-                <span class="arrow "></span>
-                </a>
-                <ul class="sub-menu">
-                    <li>
-                        <a href="layout_horizontal_sidebar_menu.html">
-                        Horizontal & Sidebar Menu</a>
-                    </li>
-                </ul>
-            </li>
+			</c:forEach>
             <!-- BEGIN FRONTEND THEME LINKS -->
             <li class="last ">
                 <a href="charts.html">

@@ -40,7 +40,7 @@ public class IndexAction extends BaseAction{
 	 */
 	@RequestMapping("/index") 
 	public ModelAndView  list(IndexModel model,HttpServletRequest request) throws Exception{
-		Map<String,Object>  context = getRootMap();
+		Map<String,Object>  context = getRootMap(request);
 		return forword("index/index",context); 
 	}
 	

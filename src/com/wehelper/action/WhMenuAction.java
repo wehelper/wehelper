@@ -27,7 +27,7 @@ import com.wehelper.utils.HtmlUtil;
 import com.wehelper.utils.TreeUtil;
  
 @Controller
-@RequestMapping("/whMenu") 
+@RequestMapping("/system") 
 public class WhMenuAction extends BaseAction{
 	
 	private final static Logger log= Logger.getLogger(WhMenuAction.class);
@@ -47,7 +47,7 @@ public class WhMenuAction extends BaseAction{
 	 */
 	@RequestMapping("/menu")
 	public ModelAndView  menu(WhMenuModel model,HttpServletRequest request) throws Exception{
-		Map<String,Object>  context = getRootMap();
+		Map<String,Object>  context = getRootMap(request);
 		model.setDeleted(DELETED.NO.key);
 		List<WhMenu> dataList = whMenuService.queryByList(model);
 		//设置页面数据
